@@ -237,6 +237,10 @@
             label2.Text = "Local Save Path";
             label2.Click += label2_Click;
             // 
+            // screenshotTimer
+            // 
+            screenshotTimer.Tick += screenshotTimer_Tick;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
