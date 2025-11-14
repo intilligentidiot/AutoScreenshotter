@@ -1,0 +1,278 @@
+﻿namespace AutoScreenshotter
+{
+    partial class Form1
+    {
+        /// <summary>
+        ///  Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        ///  Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        ///  Required method for Designer support - do not modify
+        ///  the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            btnStartStop = new Button();
+            lblStatus = new Label();
+            btnTestScreenshot = new Button();
+            numInterval = new NumericUpDown();
+            label1 = new Label();
+            groupBox1 = new GroupBox();
+            lblResDisp = new Label();
+            comboBox1 = new ComboBox();
+            label5 = new Label();
+            trackBar1 = new TrackBar();
+            label4 = new Label();
+            btnBrowseNetwork = new Button();
+            textBox1 = new TextBox();
+            label3 = new Label();
+            btnBrowseLocal = new Button();
+            txtLocalPath = new TextBox();
+            label2 = new Label();
+            ((System.ComponentModel.ISupportInitialize)numInterval).BeginInit();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
+            SuspendLayout();
+            // 
+            // btnStartStop
+            // 
+            btnStartStop.BackColor = Color.LightGreen;
+            btnStartStop.FlatStyle = FlatStyle.Popup;
+            btnStartStop.Location = new Point(12, 415);
+            btnStartStop.Name = "btnStartStop";
+            btnStartStop.Size = new Size(75, 23);
+            btnStartStop.TabIndex = 0;
+            btnStartStop.Text = "Start";
+            btnStartStop.UseVisualStyleBackColor = false;
+            btnStartStop.Click += button1_Click;
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Location = new Point(93, 419);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(104, 15);
+            lblStatus.TabIndex = 1;
+            lblStatus.Text = "Status : Stopped ...";
+            lblStatus.Click += label1_Click;
+            // 
+            // btnTestScreenshot
+            // 
+            btnTestScreenshot.BackColor = Color.LightCoral;
+            btnTestScreenshot.FlatStyle = FlatStyle.Popup;
+            btnTestScreenshot.Location = new Point(332, 415);
+            btnTestScreenshot.Name = "btnTestScreenshot";
+            btnTestScreenshot.Size = new Size(75, 23);
+            btnTestScreenshot.TabIndex = 2;
+            btnTestScreenshot.Text = "Test";
+            btnTestScreenshot.UseVisualStyleBackColor = false;
+            btnTestScreenshot.Click += button1_Click_1;
+            // 
+            // numInterval
+            // 
+            numInterval.Location = new Point(126, 24);
+            numInterval.Maximum = new decimal(new int[] { 86400, 0, 0, 0 });
+            numInterval.Minimum = new decimal(new int[] { 15, 0, 0, 0 });
+            numInterval.Name = "numInterval";
+            numInterval.Size = new Size(120, 23);
+            numInterval.TabIndex = 3;
+            numInterval.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            numInterval.ValueChanged += numericUpDown1_ValueChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(6, 26);
+            label1.Name = "label1";
+            label1.Size = new Size(101, 15);
+            label1.TabIndex = 4;
+            label1.Text = "Interval (Seconds)";
+            label1.Click += label1_Click_1;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(lblResDisp);
+            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(trackBar1);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(btnBrowseNetwork);
+            groupBox1.Controls.Add(textBox1);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(btnBrowseLocal);
+            groupBox1.Controls.Add(txtLocalPath);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(numInterval);
+            groupBox1.Location = new Point(12, 196);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(395, 206);
+            groupBox1.TabIndex = 5;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Settings";
+            groupBox1.Enter += groupBox1_Enter;
+            // 
+            // lblResDisp
+            // 
+            lblResDisp.AutoSize = true;
+            lblResDisp.Location = new Point(363, 123);
+            lblResDisp.Name = "lblResDisp";
+            lblResDisp.Size = new Size(26, 15);
+            lblResDisp.TabIndex = 13;
+            lblResDisp.Text = "0 %";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FlatStyle = FlatStyle.Popup;
+            comboBox1.Items.AddRange(new object[] { "JPG", "PNG" });
+            comboBox1.Location = new Point(125, 163);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(121, 23);
+            comboBox1.TabIndex = 11;
+            comboBox1.UseWaitCursor = true;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(6, 123);
+            label5.Name = "label5";
+            label5.Size = new Size(99, 15);
+            label5.TabIndex = 12;
+            label5.Text = "Image Resolution";
+            // 
+            // trackBar1
+            // 
+            trackBar1.LargeChange = 10;
+            trackBar1.Location = new Point(126, 123);
+            trackBar1.Maximum = 100;
+            trackBar1.Name = "trackBar1";
+            trackBar1.Size = new Size(231, 45);
+            trackBar1.SmallChange = 5;
+            trackBar1.TabIndex = 12;
+            trackBar1.TickFrequency = 10;
+            trackBar1.Value = 48;
+            trackBar1.Scroll += trackBar1_Scroll;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(6, 166);
+            label4.Name = "label4";
+            label4.Size = new Size(81, 15);
+            label4.TabIndex = 10;
+            label4.Text = "Image Format";
+            label4.Click += label4_Click;
+            // 
+            // btnBrowseNetwork
+            // 
+            btnBrowseNetwork.Location = new Point(364, 86);
+            btnBrowseNetwork.Name = "btnBrowseNetwork";
+            btnBrowseNetwork.Size = new Size(25, 23);
+            btnBrowseNetwork.TabIndex = 6;
+            btnBrowseNetwork.Text = "...";
+            btnBrowseNetwork.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(126, 87);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(232, 23);
+            textBox1.TabIndex = 9;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(6, 90);
+            label3.Name = "label3";
+            label3.Size = new Size(106, 15);
+            label3.TabIndex = 8;
+            label3.Text = "Network Save Path";
+            // 
+            // btnBrowseLocal
+            // 
+            btnBrowseLocal.Location = new Point(364, 55);
+            btnBrowseLocal.Name = "btnBrowseLocal";
+            btnBrowseLocal.Size = new Size(25, 23);
+            btnBrowseLocal.TabIndex = 7;
+            btnBrowseLocal.Text = "...";
+            btnBrowseLocal.UseVisualStyleBackColor = true;
+            // 
+            // txtLocalPath
+            // 
+            txtLocalPath.Location = new Point(126, 55);
+            txtLocalPath.Name = "txtLocalPath";
+            txtLocalPath.Size = new Size(232, 23);
+            txtLocalPath.TabIndex = 6;
+            txtLocalPath.TextChanged += txtLocalPath_TextChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(6, 58);
+            label2.Name = "label2";
+            label2.Size = new Size(89, 15);
+            label2.TabIndex = 5;
+            label2.Text = "Local Save Path";
+            label2.Click += label2_Click;
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(419, 450);
+            Controls.Add(groupBox1);
+            Controls.Add(btnTestScreenshot);
+            Controls.Add(lblStatus);
+            Controls.Add(btnStartStop);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "Form1";
+            Text = "AutoScreenshotter";
+            Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)numInterval).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private Button btnStartStop;
+        private Label lblStatus;
+        private Button btnTestScreenshot;
+        private NumericUpDown numInterval;
+        private Label label1;
+        private GroupBox groupBox1;
+        private Label label2;
+        private Button btnBrowseLocal;
+        private TextBox txtLocalPath;
+        private Label label3;
+        private TextBox textBox1;
+        private Label label4;
+        private Button btnBrowseNetwork;
+        private ComboBox comboBox1;
+        private TrackBar trackBar1;
+        private Label label5;
+        private Label lblResDisp;
+    }
+}
