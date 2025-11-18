@@ -46,5 +46,29 @@ namespace AutoScreenshotter.Properties {
                 this["LastNetworkPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastNetworkUser {
+            get {
+                return ((string)(this["LastNetworkUser"]));
+            }
+            set {
+                this["LastNetworkUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastNetworkPass {
+            get {
+                return ((string)(this["LastNetworkPass"]));
+            }
+            set {
+                this["LastNetworkPass"] = value;
+            }
+        }
     }
 }

@@ -63,66 +63,7 @@ namespace AutoScreenshotter
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            try
-            {
-                // 1. GET THE SAVE PATH
-                // Get the path from the text box.
-                string localSavePath = txtLocalPath.Text;
-
-                // 2. CHECK IF THE PATH IS VALID
-                // If the user left the local path box empty, show an error.
-                if (string.IsNullOrWhiteSpace(localSavePath))
-                {
-                    MessageBox.Show("Please enter a valid local save path first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return; // Stop the function here
-                }
-
-                // 3. CREATE THE DIRECTORY (if it doesn't exist)
-                // This is a nice, safe way to make sure the folder is ready.
-                Directory.CreateDirectory(localSavePath);
-
-                // 4. LOOP THROUGH ALL MONITORS
-                // Screen.AllScreens gives us an array of all connected displays.
-                for (int i = 0; i < Screen.AllScreens.Length; i++)
-                {
-                    // Get the current screen
-                    Screen screen = Screen.AllScreens[i];
-
-                    // 5. CREATE A BITMAP (IMAGE)
-                    // Create a blank image in memory that is the exact size of the screen
-                    Bitmap screenshot = new Bitmap(screen.Bounds.Width, screen.Bounds.Height, PixelFormat.Format32bppArgb);
-
-                    // 6. COPY THE SCREEN TO THE BITMAP
-                    // Create a graphics object to draw on our blank image
-                    using (Graphics g = Graphics.FromImage(screenshot))
-                    {
-                        // Copy the screen data from the screen's top-left corner (Bounds.Location)
-                        // into our image's top-left corner (0, 0)
-                        g.CopyFromScreen(screen.Bounds.Location, Point.Empty, screen.Bounds.Size);
-                    }
-
-                    // 7. CREATE A UNIQUE FILENAME
-                    // Format: d1_20251114_173005.png
-                    string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-                    string filename = $"d{i + 1}_{timestamp}.png"; // We add +1 because the array starts at 0
-
-                    // 8. SAVE THE FILE
-                    // Combine the path and filename
-                    string fullPath = Path.Combine(localSavePath, filename);
-                    screenshot.Save(fullPath, ImageFormat.Png);
-
-                    // Clean up the image from memory
-                    screenshot.Dispose();
-                }
-
-                // 9. SHOW A SUCCESS MESSAGE
-                MessageBox.Show($"Successfully saved {Screen.AllScreens.Length} screenshots to:\n{localSavePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                // If anything goes wrong, show a detailed error
-                MessageBox.Show($"An error occurred:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            TakeandSaveScreenshots();
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -185,6 +126,8 @@ namespace AutoScreenshotter
             // Save the current text from the boxes into our settings
             Properties.Settings.Default.LastLocalPath = txtLocalPath.Text;
             Properties.Settings.Default.LastNetworkPath = textBox1.Text;
+            Properties.Settings.Default.LastNetworkUser = txtNetworkUser.Text;
+            Properties.Settings.Default.LastNetworkPass = txtNetworkPass.Text;
 
             // Tell the settings to save themselves
             Properties.Settings.Default.Save();
@@ -218,99 +161,115 @@ namespace AutoScreenshotter
 
         private void screenshotTimer_Tick(object sender, EventArgs e)
         {
+            TakeandSaveScreenshots();
+        }
+
+        private void TakeandSaveScreenshots()
+        {
             try
             {
-                // --- 1. GET ALL SETTINGS FROM THE GUI ---
+                // --- 1. GATHER SETTINGS ---
                 string localPath = txtLocalPath.Text;
                 string networkPath = textBox1.Text;
                 string username = Environment.UserName;
 
-                // Get format from ComboBox (default to PNG)
-                ImageFormat saveFormat = ImageFormat.Png;
-                if (comboBox1.Text == "JPG")
-                {
-                    saveFormat = ImageFormat.Jpeg;
-                }
-                string fileExtension = saveFormat == ImageFormat.Jpeg ? ".jpg" : ".png";
+                string netUser = txtNetworkUser.Text;
+                string netPass = txtNetworkPass.Text;
+                bool useCreds = !string.IsNullOrWhiteSpace(netUser) && !string.IsNullOrWhiteSpace(netPass);
 
-                // Get resolution scale from TrackBar (default to 100%)
-                // We divide by 100.0 to get a double (e.g., 0.5 for 50%)
+                ImageFormat saveFormat = comboBox1.Text == "JPG" ? ImageFormat.Jpeg : ImageFormat.Png;
+                string fileExtension = saveFormat == ImageFormat.Jpeg ? ".jpg" : ".png";
                 double scale = trackBar1.Value / 100.0;
 
-                // --- 2. LOOP THROUGH ALL MONITORS ---
+                // --- 2. LOOP MONITORS ---
                 for (int i = 0; i < Screen.AllScreens.Length; i++)
                 {
                     Screen screen = Screen.AllScreens[i];
 
-                    // --- 3. CAPTURE THE SCREEN ---
-                    // Create a full-sized bitmap
+                    // Capture & Resize
                     Bitmap originalBitmap = new Bitmap(screen.Bounds.Width, screen.Bounds.Height, PixelFormat.Format32bppArgb);
                     using (Graphics g = Graphics.FromImage(originalBitmap))
                     {
                         g.CopyFromScreen(screen.Bounds.Location, Point.Empty, screen.Bounds.Size);
                     }
 
-                    // --- 4. RESIZE THE IMAGE (if needed) ---
-                    // We'll use this variable to hold our final image
                     Bitmap finalBitmap;
-
                     if (scale < 1.0)
                     {
-                        // User wants a smaller image
                         int newWidth = (int)(originalBitmap.Width * scale);
                         int newHeight = (int)(originalBitmap.Height * scale);
-
                         finalBitmap = new Bitmap(newWidth, newHeight);
-                        using (Graphics g = Graphics.FromImage(finalBitmap))
-                        {
-                            // Draw the big image onto the small bitmap (this scales it)
-                            g.DrawImage(originalBitmap, 0, 0, newWidth, newHeight);
-                        }
-                        originalBitmap.Dispose(); // Clean up the big one
+                        using (Graphics g = Graphics.FromImage(finalBitmap)) { g.DrawImage(originalBitmap, 0, 0, newWidth, newHeight); }
+                        originalBitmap.Dispose();
                     }
-                    else
-                    {
-                        // User wants 100%, just use the original
-                        finalBitmap = originalBitmap;
-                    }
+                    else { finalBitmap = originalBitmap; }
 
-                    // --- 5. CREATE FILENAME AND SAVE ---
                     string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
                     string filename = $"d{i + 1}_{timestamp}{fileExtension}";
 
-                    // Save to Local Path (if one is provided)
+                    // --- 3. SAVE LOCAL ---
                     if (!string.IsNullOrWhiteSpace(localPath))
                     {
-                        Directory.CreateDirectory(localPath); // Ensure path exists
-                        finalBitmap.Save(Path.Combine(localPath, filename), saveFormat);
+                        try
+                        {
+                            Directory.CreateDirectory(localPath);
+                            finalBitmap.Save(Path.Combine(localPath, filename), saveFormat);
+                        }
+                        catch { lblStatus.Text = "Status: Local Save Error"; }
                     }
 
-                    // Save to Network Path (if one is provided)
+                    // --- 4. SAVE NETWORK (Modern Implementation) ---
                     if (!string.IsNullOrWhiteSpace(networkPath))
                     {
-                        // Build the full path including the username
-                        string fullNetworkPath = Path.Combine(networkPath, username);
-                        Directory.CreateDirectory(fullNetworkPath); // Ensure path exists
-                        finalBitmap.Save(Path.Combine(fullNetworkPath, filename), saveFormat);
+                        try
+                        {
+                            // Define the "Action" we want to run (The saving logic)
+                            Action saveAction = () =>
+                            {
+                                string fullNetworkPath = Path.Combine(networkPath, username);
+                                Directory.CreateDirectory(fullNetworkPath);
+                                finalBitmap.Save(Path.Combine(fullNetworkPath, filename), saveFormat);
+                            };
+
+                            if (useCreds)
+                            {
+                                // Run the action AS the network user
+                                ImpersonationHelper.ExecuteActionAsUser(netUser, ".", netPass, saveAction);
+                            }
+                            else
+                            {
+                                // Run the action AS the normal user
+                                saveAction();
+                            }
+
+                            lblStatus.Text = "Status: Running...";
+                        }
+                        catch (Exception)
+                        {
+                            lblStatus.Text = "Status: Network Error";
+                        }
                     }
 
-                    finalBitmap.Dispose(); // Clean up the final image
+                    finalBitmap.Dispose();
                 }
             }
             catch (Exception ex)
             {
-                // Something went wrong (e.g., network path is unreachable)
-                // We'll stop the timer and show an error
                 screenshotTimer.Stop();
                 isRunning = false;
+                MessageBox.Show($"Fatal Error: {ex.Message}");
+            }
+        }
 
-                // Update UI
-                lblStatus.Text = "Status: ERROR!";
-                btnStartStop.Text = "Start";
-                btnStartStop.BackColor = Color.LightGreen;
-                groupBox1.Enabled = true; // Re-enable settings
-
-                MessageBox.Show($"An error occurred: {ex.Message}\n\nThe screenshotter has been stopped.", "Runtime Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private void btnTogglePass_Click(object sender, EventArgs e)
+        {
+            if (txtNetworkPass.PasswordChar == '*')
+            {
+                txtNetworkPass.PasswordChar = '\0';
+            }
+            else
+            {
+                txtNetworkPass.PasswordChar = '*';
             }
         }
     }

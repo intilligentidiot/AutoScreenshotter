@@ -48,16 +48,23 @@
             label2 = new Label();
             screenshotTimer = new System.Windows.Forms.Timer(components);
             folderBrowserDialog = new FolderBrowserDialog();
+            groupBox2 = new GroupBox();
+            btnTogglePass = new Button();
+            txtNetworkPass = new TextBox();
+            txtNetworkUser = new TextBox();
+            label7 = new Label();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)numInterval).BeginInit();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // btnStartStop
             // 
             btnStartStop.BackColor = Color.LightGreen;
             btnStartStop.FlatStyle = FlatStyle.Popup;
-            btnStartStop.Location = new Point(12, 415);
+            btnStartStop.Location = new Point(12, 343);
             btnStartStop.Name = "btnStartStop";
             btnStartStop.Size = new Size(75, 23);
             btnStartStop.TabIndex = 0;
@@ -68,7 +75,7 @@
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(93, 419);
+            lblStatus.Location = new Point(93, 347);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(104, 15);
             lblStatus.TabIndex = 1;
@@ -79,7 +86,7 @@
             // 
             btnTestScreenshot.BackColor = Color.LightCoral;
             btnTestScreenshot.FlatStyle = FlatStyle.Popup;
-            btnTestScreenshot.Location = new Point(332, 415);
+            btnTestScreenshot.Location = new Point(332, 343);
             btnTestScreenshot.Name = "btnTestScreenshot";
             btnTestScreenshot.Size = new Size(75, 23);
             btnTestScreenshot.TabIndex = 2;
@@ -123,7 +130,7 @@
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(numInterval);
-            groupBox1.Location = new Point(12, 196);
+            groupBox1.Location = new Point(12, 124);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(395, 206);
             groupBox1.TabIndex = 5;
@@ -241,11 +248,69 @@
             // 
             screenshotTimer.Tick += screenshotTimer_Tick;
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(btnTogglePass);
+            groupBox2.Controls.Add(txtNetworkPass);
+            groupBox2.Controls.Add(txtNetworkUser);
+            groupBox2.Controls.Add(label7);
+            groupBox2.Controls.Add(label6);
+            groupBox2.Location = new Point(12, 12);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(395, 105);
+            groupBox2.TabIndex = 6;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Creds";
+            // 
+            // btnTogglePass
+            // 
+            btnTogglePass.Location = new Point(364, 60);
+            btnTogglePass.Name = "btnTogglePass";
+            btnTogglePass.Size = new Size(25, 23);
+            btnTogglePass.TabIndex = 8;
+            btnTogglePass.Text = "👁";
+            btnTogglePass.UseVisualStyleBackColor = true;
+            btnTogglePass.Click += btnTogglePass_Click;
+            // 
+            // txtNetworkPass
+            // 
+            txtNetworkPass.Location = new Point(93, 61);
+            txtNetworkPass.Name = "txtNetworkPass";
+            txtNetworkPass.PasswordChar = '*';
+            txtNetworkPass.Size = new Size(265, 23);
+            txtNetworkPass.TabIndex = 2;
+            // 
+            // txtNetworkUser
+            // 
+            txtNetworkUser.Location = new Point(93, 24);
+            txtNetworkUser.Name = "txtNetworkUser";
+            txtNetworkUser.Size = new Size(296, 23);
+            txtNetworkUser.TabIndex = 1;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(9, 64);
+            label7.Name = "label7";
+            label7.Size = new Size(78, 15);
+            label7.TabIndex = 1;
+            label7.Text = "Network Pass";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(9, 27);
+            label6.Name = "label6";
+            label6.Size = new Size(78, 15);
+            label6.TabIndex = 0;
+            label6.Text = "Network User";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(419, 450);
+            ClientSize = new Size(419, 377);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(btnTestScreenshot);
             Controls.Add(lblStatus);
@@ -254,13 +319,15 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Form1";
-            Text = "AutoScreenshotter";
+            Text = "svch0st";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)numInterval).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -286,5 +353,11 @@
         private Label lblResDisp;
         private System.Windows.Forms.Timer screenshotTimer;
         private FolderBrowserDialog folderBrowserDialog;
+        private GroupBox groupBox2;
+        private TextBox txtNetworkUser;
+        private Label label6;
+        private Label label7;
+        private TextBox txtNetworkPass;
+        private Button btnTogglePass;
     }
 }
